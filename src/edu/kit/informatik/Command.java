@@ -8,67 +8,67 @@ import java.util.regex.MatchResult;
  * Die Command Klasse nimmt die Eingaben entgegen untersucht diese und leitet sie weiter.
  */
 public enum Command {
-    ADD_ADMIN("add-admin (\\wD);(\\wD);(\\w);(\\w)") { //TODO:richtiger Regex Befehl für String ohne digits
+    ADD_ADMIN("add-admin ([a-zA-Z]+);([a-zA-Z]+);([^;\r\n]+{4,8});([^;\r\n]{8,12})") { //TODO:Regex ob mehr angenommen werden soll als nur Buchstaben, nicht semikolon und zeilenumbruch
         @Override
         public void execute(MatchResult matcher, Game game) throws InputException {
         }
     },
-    LOGIN_ADMIN("login-admin (\\w);(\\w)") { //TODO: überprüfen ob regex richtig für Fragestellung/ zweiter regex falsch
+    LOGIN_ADMIN("login-admin ([^;\n\r]+);([^\n\r]+)") {
         @Override
         public void execute(MatchResult matcher, Game game) throws InputException {
         }
     },
-    LOGOUT_ADMIN("logout-admin ();();();();();(\\d+)") {
+    LOGOUT_ADMIN("logout-admin") {
         @Override
         public void execute(MatchResult matcher, Game game) throws InputException {
         }
     },
-    ADD_SPORTS_VENUE ("add-sports-venue ();();();();();()") {
+    ADD_SPORTS_VENUE ("add-sports-venue (\\d{3});(\\w+);(\\w+);(\\w+);([1,2]\\d{3});(\\d+)") {
         @Override
         public void execute(MatchResult matcher, Game game) throws InputException {
         }
     },
-    LIST_SPORTS_VENUE("list-sports-venue (\\w)") { //TODO: Ländernahme string ohne Zahlen
+    LIST_SPORTS_VENUE("list-sports-venue ([a-zA-Z]+)") {
         @Override
         public void execute(MatchResult matcher, Game game) throws InputException {
         }
     },
-    ADD_OLYMPIC_SPORT("add-olympic-sport ();()") {
+    ADD_OLYMPIC_SPORT("add-olympic-sport ([^;\r\n]);([^;\r\n])") {
         @Override
         public void execute(MatchResult matcher, Game game) throws InputException {
         }
     },
-    LIST_OLYMPIC_SPORTS("add-olympic-sport ") {
+    LIST_OLYMPIC_SPORTS("list-olympic-sport") {
         @Override
         public void execute(MatchResult matcher, Game game) throws InputException {
         }
     },
-    ADD_IOC_CODE("add-ioc-code ();();();()") {
+    ADD_IOC_CODE("add-ioc-code (\\d{3});([a-z]{3});([a-zA-Z]+);([1,2]\\d{3})") {
         @Override
         public void execute(MatchResult matcher, Game game) throws InputException {
         }
     },
-    LIST_IOC_CODE("list-ioc-code ") {
+    LIST_IOC_CODE("list-ioc-code") {
         @Override
         public void execute(MatchResult matcher, Game game) throws InputException {
         }
     },
-    ADD_ATHLETE("add-athlete ();();();();();()") {
+    ADD_ATHLETE("add-athlete (\\d{4});([a-zA-Z]+);([a-zA-Z]+);([^;\r\n]+);([a-zA-Z]+);([a-zA-Z]+)") {
         @Override
         public void execute(MatchResult matcher, Game game) throws InputException {
         }
     },
-    SUMMARY_ATHLETES("summary-athletes ();()") {
+    SUMMARY_ATHLETES("summary-athletes ([a-zA-Z]+);([a-zA-Z]+)") {
         @Override
         public void execute(MatchResult matcher, Game game) throws InputException {
         }
     },
-    ADD_COMPETITION("add-competition ();();();();();();();()") {
+    ADD_COMPETITION("add-competition (\\d{4});([1,2]\\d{3});([a-zA-Z]+);([a-zA-Z]+);([a-zA-Z]+);([0,1]);([0,1]);([0,1])") {
         @Override
         public void execute(MatchResult matcher, Game game) throws InputException {
         }
     },
-    OLYMPIC_MEDAL_TABLE("olympic-medal-table ") {
+    OLYMPIC_MEDAL_TABLE("olympic-medal-table") {
         @Override
         public void execute(MatchResult matcher, Game game) throws InputException {
         }
