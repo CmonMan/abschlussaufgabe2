@@ -1,7 +1,4 @@
-package edu.kit.informatik.input;
-
-import edu.kit.informatik.operation.Game;
-import edu.kit.informatik.operation.InputException;
+package edu.kit.informatik;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,103 +8,71 @@ import java.util.regex.MatchResult;
  * Die Command Klasse nimmt die Eingaben entgegen untersucht diese und leitet sie weiter.
  */
 public enum Command {
-
-
-    /**
-     * Überprüfung ob eine Korrekte place eingabe gemacht wurde
-     */
-    PLACE("place (-?\\d+);(-?\\d+);(-?\\d+);(-?\\d+)") {
+    ADD_ADMIN("add-admin (\\wD);(\\wD);(\\w);(\\w)") { //TODO:richtiger Regex Befehl für String ohne digits
         @Override
         public void execute(MatchResult matcher, Game game) throws InputException {
-
-            if (!Math.validateInt(matcher.group(1), matcher.group(2), matcher.group(3), matcher.group(4))) {
-                return;
-            }
-            int rowNum1 = Integer.parseInt(matcher.group(1));
-            int colNum1 = Integer.parseInt(matcher.group(2));
-            int rowNum2 = Integer.parseInt(matcher.group(3));
-            int colNum2 = Integer.parseInt(matcher.group(4));
-
-            game.placeStone(rowNum1, colNum1, rowNum2, colNum2);
         }
     },
-
-
-    /**
-     * die rowprint eingabe um eine Zeile rauszubekommen
-     */
-    ROWPRINT("rowprint (-?\\d+)") {
+    LOGIN_ADMIN("login-admin (\\w);(\\w)") { //TODO: überprüfen ob regex richtig für Fragestellung/ zweiter regex falsch
         @Override
         public void execute(MatchResult matcher, Game game) throws InputException {
-            if (!Math.validateInt(matcher.group(1))) {
-                return;
-            }
-            int rowNum = Integer.parseInt(matcher.group(1));
-
-            Terminal.printLine(game.rowPrint(rowNum));
         }
     },
-
-
-    /**
-     * Überprüfung der colprint Eingabe um eine Spalte zurück zu bekommen
-     */
-    COLPRINT("colprint (-?\\d+)") {
-      @Override
-      public void execute(MatchResult matcher, Game game) throws InputException {
-          if (!Math.validateInt(matcher.group(1))) {
-              return;
-          }
-          int colNum = Integer.parseInt(matcher.group(1));
-
-          Terminal.printLine(game.colPrint(colNum));
-      }
-    },
-
-
-    /**
-     * die Eingabe um das ganze Spielfeld graphisch angezeigt zu bekommen
-     */
-    PRINT("print") {
+    LOGOUT_ADMIN("logout-admin ();();();();();(\\d+)") {
         @Override
         public void execute(MatchResult matcher, Game game) throws InputException {
-            game.print();
         }
     },
-
-
-    /**
-     * die state eingabe gibt einen bestimmten Spielstein zurück
-     */
-    STATE("state (-?\\d+);(-?\\d+)") {
+    ADD_SPORTS_VENUE ("add-sports-venue ();();();();();()") {
         @Override
         public void execute(MatchResult matcher, Game game) throws InputException {
-            if (Math.validateInt(matcher.group(1), matcher.group(2))) {
-                return;
-            }
-            int rowNum = Integer.parseInt(matcher.group(1));
-            int colNum = Integer.parseInt(matcher.group(2));
-
-            Terminal.printLine(game.state(rowNum, colNum));
         }
     },
-
-
-    /**
-     * die reset Eingabe lässt ein Spielfeld neu initialisieren
-     */
-    RESET("reset") {
+    LIST_SPORTS_VENUE("list-sports-venue (\\w)") { //TODO: Ländernahme string ohne Zahlen
         @Override
         public void execute(MatchResult matcher, Game game) throws InputException {
-            game.reset();
-            Terminal.printLine("OK");
         }
     },
-
-
-    /**
-     * mit der quit Eingabe wird das Spiel abgebrochen
-     */
+    ADD_OLYMPIC_SPORT("add-olympic-sport ();()") {
+        @Override
+        public void execute(MatchResult matcher, Game game) throws InputException {
+        }
+    },
+    LIST_OLYMPIC_SPORTS("add-olympic-sport ") {
+        @Override
+        public void execute(MatchResult matcher, Game game) throws InputException {
+        }
+    },
+    ADD_IOC_CODE("add-ioc-code ();();();()") {
+        @Override
+        public void execute(MatchResult matcher, Game game) throws InputException {
+        }
+    },
+    LIST_IOC_CODE("list-ioc-code ") {
+        @Override
+        public void execute(MatchResult matcher, Game game) throws InputException {
+        }
+    },
+    ADD_ATHLETE("add-athlete ();();();();();()") {
+        @Override
+        public void execute(MatchResult matcher, Game game) throws InputException {
+        }
+    },
+    SUMMARY_ATHLETES("summary-athletes ();()") {
+        @Override
+        public void execute(MatchResult matcher, Game game) throws InputException {
+        }
+    },
+    ADD_COMPETITION("add-competition ();();();();();();();()") {
+        @Override
+        public void execute(MatchResult matcher, Game game) throws InputException {
+        }
+    },
+    OLYMPIC_MEDAL_TABLE("olympic-medal-table ") {
+        @Override
+        public void execute(MatchResult matcher, Game game) throws InputException {
+        }
+    },
     QUIT("quit") {
         @Override
         public void execute(MatchResult matcher, Game game) throws InputException {
@@ -160,4 +125,6 @@ public enum Command {
     public boolean isRunning() {
         return isRunning;
     }
+}
+
 }
