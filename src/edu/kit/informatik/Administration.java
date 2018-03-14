@@ -2,6 +2,7 @@ package edu.kit.informatik;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Administration {
 
@@ -66,11 +67,11 @@ public class Administration {
      * @param place Ort der Sportstätte
      * @param sportsVenueName Name
      * @param yearOfOpening Eröffnungsjahr
-     * @param amountOfSeats Anzahl der Sitzplätze
+     * @param numberOfSeats Anzahl der Sitzplätze
      * @throws InputException falls die Sportstätte schon existiert
      */
     public void addSportsVenue(int sportsVenueID, String countryName, String place, String sportsVenueName,
-                               int yearOfOpening, int amountOfSeats) throws InputException{
+                               int yearOfOpening, int numberOfSeats) throws InputException{
         /** Falls das Land noch nicht existiert wird ein neues Land erstellt. Es muss dann auch nicht geprüft werden
          * ob es die Sportstätte schon gibt, da keine Instanz des Landes mit diesem Namen existiert und somit
          * keine Möglichkeit besteht, dass die Sportstätte existiert.
@@ -81,7 +82,7 @@ public class Administration {
             throw new InputException("the sports venue you want to add already exists.");
         }
 
-        countries.get(countryName).addSportsVenue(sportsVenueID, place, sportsVenueName, yearOfOpening, amountOfSeats);
+        countries.get(countryName).addSportsVenue(sportsVenueID, place, sportsVenueName, yearOfOpening, numberOfSeats);
     }
 
     /**
