@@ -52,14 +52,27 @@ public enum Command {
     ADD_SPORTS_VENUE ("add-sports-venue (\\d{3});([^\\d\\W]+);([^\\d\\W]+);([^\\d\\W]+);(\\d{4});(\\d+)") {
         @Override
         public void execute(MatchResult matcher, Administration olympicWinterGames) throws InputException {
+            int sportsVenueID = Analysis.validateInt(matcher.group(1));
+            String countryName = matcher.group((2));
+            String place = matcher.group(3);
+            String sportsVenueName = matcher.group(4);
+            int yearOfOpening = Analysis.validateInt(matcher.group(5));
+            int amountOfSeats = Analysis.validateInt(matcher.group(6));
+
+            olympicWinterGames.addSportsVenue(sportsVenueID, countryName, place, sportsVenueName, yearOfOpening,
+                    amountOfSeats);
+            Terminal.printLine("OK");
         }
     },
     /**
      * Ausgabe der Sportstätten nach Anzahl der Sitzplätze
      */
-    LIST_SPORTS_VENUE("list-sports-venue ([^\\d\\W]+)") {
+    LIST_SPORTS_VENUES("list-sports-venues ([^\\d\\W]+)") {
         @Override
         public void execute(MatchResult matcher, Administration olympicWinterGames) throws InputException {
+            String countryName = matcher.group(1);
+
+            Terminal.printLine(olympicWinterGames.listSportsVenues(countryName));
         }
     },
     /**
