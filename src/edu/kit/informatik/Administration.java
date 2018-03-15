@@ -1,10 +1,10 @@
 package edu.kit.informatik;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
-public class Administration {
+public class Administration {                                                                                           //TODO: überall login testen (Exception)
+
+    private Map<String, String> sportsAndDiciplines;
 
     private Map<String, Admin> admins;
     private Map<String, Country> countries;
@@ -13,6 +13,7 @@ public class Administration {
     public Administration() {
         this.admins = new HashMap<>();
         this.countries = new HashMap<>();
+        this.sportsAndDiciplines = new HashMap<>();
     }
 
     /**
@@ -70,11 +71,12 @@ public class Administration {
      * @param numberOfSeats Anzahl der Sitzplätze
      * @throws InputException falls die Sportstätte schon existiert
      */
-    public void addSportsVenue(int sportsVenueID, String countryName, String place, String sportsVenueName,
+    public void addSportsVenue(String sportsVenueID, String countryName, String place, String sportsVenueName,
                                int yearOfOpening, int numberOfSeats) throws InputException{
-        /** Falls das Land noch nicht existiert wird ein neues Land erstellt. Es muss dann auch nicht geprüft werden
-         * ob es die Sportstätte schon gibt, da keine Instanz des Landes mit diesem Namen existiert und somit
-         * keine Möglichkeit besteht, dass die Sportstätte existiert.
+        /*
+          Falls das Land noch nicht existiert wird ein neues Land erstellt. Es muss dann auch nicht geprüft werden
+          ob es die Sportstätte schon gibt, da keine Instanz des Landes mit diesem Namen existiert und somit
+          keine Möglichkeit besteht, dass die Sportstätte existiert.
          */
         if (!countries.containsKey(countryName)) {
             countries.put(countryName, new Country());
@@ -85,20 +87,40 @@ public class Administration {
         countries.get(countryName).addSportsVenue(sportsVenueID, place, sportsVenueName, yearOfOpening, numberOfSeats);
     }
 
+
     /**
      * Methode um die Sporstätten eines Landes herauszubekommen
      * @param countryName Name des Landes
-     * @return Es wird eine Liste an Sportstätten sortiert nach den Sitzplätzen zurückgegeben
+     * @return Es wird eine Liste als String an Sportstätten sortiert nach den Sitzplätzen bzw. IDs zurückgegeben
      * @throws InputException falls das Land keine Sportstätten besitzt
      */
-    //TODO: testen ob bei einem land das nicht initialisiert wurde Programm abstürzt (vermutlich nicht da nach Key gefragt wurde und abbricht)
+
     public String listSportsVenues(String countryName) throws InputException {
         if (!countries.containsKey(countryName)) {
             throw new InputException("no sport venue in this country");
-        } else if (countries.get(countryName).getSportsVenues().size() == 0) {
-            throw new InputException("there is no sport venue in this country");
+        } else if (countries.get(countryName).getSportsVenues().isEmpty()) {
+            throw new InputException("there is no sport venue in this country");                                            //TODO: Fehler bei kein IOC Kürzel hinterlegt
         }
-        //TODO: herausfinden wegen Sortierung und wie der return befehl dann aussehen muss
+        return countries.get(countryName).listSportsVenues();
+    }
+
+    /**
+     * Methode um eine Sportart und Disziplin hinzuzufügen
+     * @param sport die Sportart
+     * @param discipline die Sportdisziplin
+     * @throws InputException falls die Disziplin bereits existiert
+     */
+    public void addOlympicSport(String sport, String discipline) throws InputException {
+        if (sportsAndDiciplines.isEmpty()) {
+            sportsAndDiciplines.put(discipline, sport);
+            return;
+        } else if(sportsAndDiciplines.containsKey(discipline)) {
+                throw new InputException("this discipline already exists");
+        }
+        sportsAndDiciplines.put(discipline, sport);
+    }
+
+    public Map<String, String> listSportsAndDisciplines() throws InputException{                                        //TODO:Gerade keine verfickte Ahnung
         return null;
     }
 }

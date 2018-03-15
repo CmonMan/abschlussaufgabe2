@@ -1,11 +1,6 @@
 package edu.kit.informatik;
 
-/**
- * Die Analysis Klasse stellt verschiedenste Evaluationen, von Integer validierung bis sortierung von Zahlen sowie
- * Wörtern an.
- */
-public class Analysis {
-
+public class ValidateInteger {
     /**
      * Die Methode prüft eingegebene Integer Werte. Falls der Integer Wert größer als der Integer Bereich ist wird
      * ein Programm absturz verhindert, da eine Exception geworfen wird. Ansonsten wird die Zahl zurückgegeben als
@@ -15,8 +10,7 @@ public class Analysis {
      */
     public static int validateInt(String input) {
         try {
-            int output = Integer.parseInt(input);
-            return output;
+            return Integer.parseInt(input);
         } catch (NumberFormatException e) {
             Terminal.printError("number of input is outside the integer range");
             return -1;

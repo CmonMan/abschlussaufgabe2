@@ -52,13 +52,13 @@ public enum Command {
     ADD_SPORTS_VENUE ("add-sports-venue (\\d{3});([^\\d\\W]+);([^\\d\\W]+);([^\\d\\W]+);(\\d{4});(\\d+)") {
         @Override
         public void execute(MatchResult matcher, Administration olympicWinterGames) throws InputException {
-            int sportsVenueID = Analysis.validateInt(matcher.group(1));
+            String sportsVenueID = matcher.group(1);
             String countryName = matcher.group((2));
             String place = matcher.group(3);
             String sportsVenueName = matcher.group(4);
-            int yearOfOpening = Analysis.validateInt(matcher.group(5));
-            int amountOfSeats = Analysis.validateInt(matcher.group(6));
-
+            int yearOfOpening = ValidateInteger.validateInt(matcher.group(5));
+            int amountOfSeats = ValidateInteger.validateInt(matcher.group(6));
+            if(yearOfOpening == -1 || amountOfSeats == -1) return;
             olympicWinterGames.addSportsVenue(sportsVenueID, countryName, place, sportsVenueName, yearOfOpening,
                     amountOfSeats);
             Terminal.printLine("OK");
@@ -78,17 +78,23 @@ public enum Command {
     /**
      * Hinzüfugen einer Olympischen Sportart, sowie Sportdisziplin
      */
-    ADD_OLYMPIC_SPORT("add-olympic-sport ([^\\n;]);([^\\n;])") {
+    ADD_OLYMPIC_SPORT("add-olympic-sport ([^\\n;]+);([^\\n;]+)") {
         @Override
         public void execute(MatchResult matcher, Administration olympicWinterGames) throws InputException {
+            String sport = matcher.group(1);
+            String discipline = matcher.group(2);
+
+            olympicWinterGames.addOlympicSport(sport, discipline);
+            Terminal.printLine("OK");
         }
     },
     /**
      * Ausgabe der Sporstätten alphabetisch gelistet
      */
-    LIST_OLYMPIC_SPORTS("list-olympic-sport") {
+    LIST_OLYMPIC_SPORTS("list-olympic-sports") {
         @Override
         public void execute(MatchResult matcher, Administration olympicWinterGames) throws InputException {
+            Terminal.printLine(olympicWinterGames.listSportsAndDisciplines());
         }
     },
     /**

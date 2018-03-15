@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Country {
-    private Map<Integer, SportVenue> sportsVenues;
+    private Map<String, SportVenue> sportsVenues;
 
     /**
      * Konstruktor für die Country Klasse
@@ -18,7 +18,7 @@ public class Country {
      * Somit kann Exception Handling in einer Klasse durchgeführt werden und ist nicht überall verteilt.
      * @return Sporstätten des Landes
      */
-    public Map<Integer, SportVenue> getSportsVenues() {
+    public Map<String, SportVenue> getSportsVenues() {
         return sportsVenues;
     }
 
@@ -30,8 +30,13 @@ public class Country {
      * @param yearOfOpening Eröffnungsjahr
      * @param amountOfSeats Anzahl der Sitzplätze
      */
-    public void addSportsVenue(int sportsVenueID, String place, String sportsVenueName, int yearOfOpening,
+    public void addSportsVenue(String sportsVenueID, String place, String sportsVenueName, int yearOfOpening,
                                int amountOfSeats) {
-        sportsVenues.put(sportsVenueID, new SportVenue(place, sportsVenueName, yearOfOpening, amountOfSeats));
+        sportsVenues.put(sportsVenueID, new SportVenue(sportsVenueID, place, sportsVenueName, yearOfOpening,
+                amountOfSeats));
+    }
+
+    public String listSportsVenues() {
+        return SortSportsVenueBySeats.sortBySeats(sportsVenues);                                                        //TODO:Kommentar
     }
 }
