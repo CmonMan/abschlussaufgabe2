@@ -2,18 +2,24 @@ package edu.kit.informatik;
 
 import java.util.*;
 
+/**
+ *
+ */
 public class Administration {                                                                                           //TODO: überall login testen (Exception)
 
-    private Map<String, String> sportsAndDiciplines;
+    private HashMap<String, Sport> sports;
 
     private Map<String, Admin> admins;
     private Map<String, Country> countries;
     private boolean adminLoggedIn = false;
 
+    /**
+     *
+     */
     public Administration() {
         this.admins = new HashMap<>();
         this.countries = new HashMap<>();
-        this.sportsAndDiciplines = new HashMap<>();
+        this.sports = new HashMap<>();
     }
 
     /**
@@ -73,12 +79,15 @@ public class Administration {                                                   
      */
     public void addSportsVenue(String sportsVenueID, String countryName, String place, String sportsVenueName,
                                int yearOfOpening, int numberOfSeats) throws InputException{
+        if (!adminLoggedIn) {
+            throw new InputException("there is no admin logged in.");
+        }
         /*
           Falls das Land noch nicht existiert wird ein neues Land erstellt. Es muss dann auch nicht geprüft werden
           ob es die Sportstätte schon gibt, da keine Instanz des Landes mit diesem Namen existiert und somit
           keine Möglichkeit besteht, dass die Sportstätte existiert.
          */
-        if (!countries.containsKey(countryName)) {
+        else if (!countries.containsKey(countryName)) {
             countries.put(countryName, new Country());
         } else if (countries.get(countryName).getSportsVenues().containsKey(sportsVenueID)) {
             throw new InputException("the sports venue you want to add already exists.");
@@ -96,7 +105,9 @@ public class Administration {                                                   
      */
 
     public String listSportsVenues(String countryName) throws InputException {
-        if (!countries.containsKey(countryName)) {
+        if (!adminLoggedIn) {
+            throw new InputException("there is no admin logged in.");
+        } else if (!countries.containsKey(countryName)) {
             throw new InputException("no sport venue in this country");
         } else if (countries.get(countryName).getSportsVenues().isEmpty()) {
             throw new InputException("there is no sport venue in this country");                                            //TODO: Fehler bei kein IOC Kürzel hinterlegt
@@ -106,21 +117,35 @@ public class Administration {                                                   
 
     /**
      * Methode um eine Sportart und Disziplin hinzuzufügen
-     * @param sport die Sportart
-     * @param discipline die Sportdisziplin
+     * @param sport Name der Sportart
+     * @param discipline Name der Disziplin
      * @throws InputException falls die Disziplin bereits existiert
      */
     public void addOlympicSport(String sport, String discipline) throws InputException {
-        if (sportsAndDiciplines.isEmpty()) {
-            sportsAndDiciplines.put(discipline, sport);
+        if (!adminLoggedIn) {
+            throw new InputException("there is no admin logged in.");
+        } else if (!sports.containsKey(sport)) {
+            Sport actualSport = new Sport(sport);
+            sports.put(sport, actualSport);
+            actualSport.addDiscipline(discipline);
             return;
-        } else if(sportsAndDiciplines.containsKey(discipline)) {
-                throw new InputException("this discipline already exists");
         }
-        sportsAndDiciplines.put(discipline, sport);
+        Sport actualSport = sports.get(sport);
+        if(!actualSport.addDiscipline(discipline)) {
+            throw new InputException("the discipline already exists");
+        }
+        actualSport.addDiscipline(discipline);
     }
 
-    public Map<String, String> listSportsAndDisciplines() throws InputException{                                        //TODO:Gerade keine verfickte Ahnung
-        return null;
+    /**
+     * @return
+     * @throws InputException
+     */
+    public String listSportsAndDisciplines() throws InputException{
+        if (!adminLoggedIn) {
+            throw new InputException("there is no admin logged in.");
+        }
+
+        return SportsAndDisciplinesAlphabetically.listSportsAndDisciplines(sports).trim();
     }
 }
