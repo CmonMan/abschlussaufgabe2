@@ -3,9 +3,10 @@ package edu.kit.informatik;
 import java.util.*;
 
 /**
- *
+ * Die Administrations Klasse stellt das Verwaltungssystem dar. Über diese wird das Exception Handling betrieben und
+ * es werden Informationen weitergegeben oder für das Verwaltungssyste wichtige abgespeichert.
  */
-public class Administration {                                                                                           //TODO: überall login testen (Exception)
+public class Administration {
 
     private HashMap<String, Sport> sports;
     private Map<String, Admin> admins;
@@ -13,7 +14,7 @@ public class Administration {                                                   
     private boolean adminLoggedIn = false;
 
     /**
-     *
+     * Konstruktor der Klasse instanziiert die einzelnen Verwaltungseinheiten.
      */
     public Administration() {
         this.admins = new HashMap<>();
@@ -166,7 +167,7 @@ public class Administration {                                                   
     /**
      * Methode gibt einen String mit einer Liste an IOC Codes sortiert nach deren Festlegungsdatum und ID zurück. Man
      * musst nicht prüfen ob es Länder ohne IOC Codes gibt, da diese niemals erstellt werden können.
-     * @return
+     * @return String Liste mit sortierten IOC Codes.
      * @throws InputException wenn kein Admin angemeldet oder keine Länder existieren
      */
     public String listIOCCodes() throws InputException {

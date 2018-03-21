@@ -3,6 +3,9 @@ package edu.kit.informatik;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Klasse die ein Land repräsentiert
+ */
 public class Country{
     private String countryName;
     private Map<String, SportVenue> sportsVenues;

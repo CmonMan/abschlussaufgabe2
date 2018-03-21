@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Map;
 
+/**
+ * Klasse beinhaltet die statische Methode um Sportarten und Disziplinen Alphabetisch zu sortieren
+ */
 public class SportsAndDisciplinesAlphabetically {
 
     /**

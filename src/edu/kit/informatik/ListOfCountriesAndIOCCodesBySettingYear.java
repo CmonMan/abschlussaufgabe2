@@ -4,8 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
 
+/**
+ *
+ */
 public class ListOfCountriesAndIOCCodesBySettingYear {
 
+    /**
+     * @param countries
+     * @return
+     */
     public static String listCountriesAndIOC(Map<String, Country> countries) {
         ArrayList<IOC> listOfIOCCodes = new ArrayList<>();
 

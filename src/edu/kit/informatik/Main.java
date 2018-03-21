@@ -1,6 +1,12 @@
 package edu.kit.informatik;
 
+/**
+ *
+ */
 public class Main {
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
         Administration olympicWinterGamesAdministration = new Administration();
         Command command = null;

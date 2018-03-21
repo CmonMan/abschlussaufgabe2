@@ -1,5 +1,8 @@
 package edu.kit.informatik;
 
+/**
+ * Sportstätten Klasse welche ein Sportstätten Objekt darstellt.
+ */
 public class SportVenue implements Comparable<SportVenue>{
     private String location;
     private String sportsVenueName;

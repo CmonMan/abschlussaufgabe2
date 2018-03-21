@@ -1,5 +1,8 @@
 package edu.kit.informatik;
 
+/**
+ * Klasse mit einer statischen Methode um ein Integer zu validieren
+ */
 public class ValidateInteger {
     /**
      * Die Methode prüft eingegebene Integer Werte. Falls der Integer Wert größer als der Integer Bereich ist wird
