@@ -3,16 +3,22 @@ package edu.kit.informatik;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Country {
+public class Country{
+    private String countryName;
     private Map<String, SportVenue> sportsVenues;
+    private IOC ioc;
 
     /**
      * Konstruktor für die Country Klasse
+     * @param iocID IOC ID
+     * @param iocCode IOC Code
+     * @param year Festlegungsjahr
      */
-    public Country() {
+    public Country(int iocID, String iocCode, int year, String countryName) {
+        this.countryName = countryName;
         this.sportsVenues = new HashMap<>();
+        this.ioc = new IOC(iocID, iocCode, year);
     }
-
     /**
      * Es werden die Sportstätten eines Landes zurückgegeben.
      * Somit kann Exception Handling in einer Klasse durchgeführt werden und ist nicht überall verteilt.
@@ -36,7 +42,37 @@ public class Country {
                 amountOfSeats));
     }
 
+    /**
+     * Methode gibt die String liste an Sportstätten sortiert zurück
+     * @return Liste der Sportstätten
+     */
     public String listSportsVenues() {
-        return SortSportsVenueBySeats.sortBySeats(sportsVenues);                                                        //TODO:Kommentar
+        return SortSportsVenueBySeats.sortBySeats(sportsVenues);
+    }
+
+    /**
+     * Hinzufügen des Ioc Codes falls er nicht bei der initialisierung des Landes nicht hinzugefügt wurde.
+     * @param iocID IOC ID
+     * @param iocCode IOC Code
+     * @param year Festlegungsjahr
+     */
+    public void addIOC(int iocID, String iocCode, int year) {
+        this.ioc = new IOC(iocID, iocCode, year);
+    }
+
+    /**
+     * Getter für den Namen des Landes
+     * @return Name des Landes
+     */
+    public String getCountryName() {
+        return countryName;
+    }
+
+    /**
+     * Getter Methode für die IOC-Codes des Landes
+     * @return IOC Objekt
+     */
+    public IOC getIOC() {
+        return ioc;
     }
 }

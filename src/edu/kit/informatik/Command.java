@@ -89,7 +89,7 @@ public enum Command {
         }
     },
     /**
-     * Ausgabe der Sporstätten alphabetisch gelistet
+     * Ausgabe der Sportarten und Disziplinen alphabetisch gelistet
      */
     LIST_OLYMPIC_SPORTS("list-olympic-sports") {
         @Override
@@ -103,14 +103,22 @@ public enum Command {
     ADD_IOC_CODE("add-ioc-code (\\d{3});([a-z]{3});([^\\d\\W]+);(\\d{4})") {
         @Override
         public void execute(MatchResult matcher, Administration olympicWinterGames) throws InputException {
+            int iocID = ValidateInteger.validateInt(matcher.group(1));
+            String iocCode = matcher.group(2);
+            String countryName = matcher.group(3);
+            int year = ValidateInteger.validateInt(matcher.group(4));
+
+            olympicWinterGames.addIOCCode(iocID, iocCode, countryName, year);
+            Terminal.printLine("OK");
         }
     },
     /**
      * Ausgabe der IOC-Länder Codes aufsteigend nach Festlegungsjahr
      */
-    LIST_IOC_CODE("list-ioc-code") {
+    LIST_IOC_CODE("list-ioc-codes") {
         @Override
         public void execute(MatchResult matcher, Administration olympicWinterGames) throws InputException {
+            Terminal.printLine(olympicWinterGames.listIOCCodes());
         }
     },
     /**

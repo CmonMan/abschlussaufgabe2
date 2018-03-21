@@ -8,7 +8,6 @@ import java.util.*;
 public class Administration {                                                                                           //TODO: überall login testen (Exception)
 
     private HashMap<String, Sport> sports;
-
     private Map<String, Admin> admins;
     private Map<String, Country> countries;
     private boolean adminLoggedIn = false;
@@ -81,14 +80,8 @@ public class Administration {                                                   
                                int yearOfOpening, int numberOfSeats) throws InputException{
         if (!adminLoggedIn) {
             throw new InputException("there is no admin logged in.");
-        }
-        /*
-          Falls das Land noch nicht existiert wird ein neues Land erstellt. Es muss dann auch nicht geprüft werden
-          ob es die Sportstätte schon gibt, da keine Instanz des Landes mit diesem Namen existiert und somit
-          keine Möglichkeit besteht, dass die Sportstätte existiert.
-         */
-        else if (!countries.containsKey(countryName)) {
-            countries.put(countryName, new Country());
+        } else if (!countries.containsKey(countryName)) {
+            throw new InputException("you need to initialize the IOC code and country first");
         } else if (countries.get(countryName).getSportsVenues().containsKey(sportsVenueID)) {
             throw new InputException("the sports venue you want to add already exists.");
         }
@@ -110,7 +103,7 @@ public class Administration {                                                   
         } else if (!countries.containsKey(countryName)) {
             throw new InputException("no sport venue in this country");
         } else if (countries.get(countryName).getSportsVenues().isEmpty()) {
-            throw new InputException("there is no sport venue in this country");                                            //TODO: Fehler bei kein IOC Kürzel hinterlegt
+            throw new InputException("there is no sport venue in this country");
         }
         return countries.get(countryName).listSportsVenues();
     }
@@ -138,14 +131,50 @@ public class Administration {                                                   
     }
 
     /**
-     * @return
-     * @throws InputException
+     * Methode um die Sportarten sowie die dazugehörigen Disziplinen zu als Liste in einem String zurückzugeben
+     * @return einen Sportarten und Disziplinen String
+     * @throws InputException falls Admin nicht angemeldet oder noch keine Sportarten hinzugefügt
      */
     public String listSportsAndDisciplines() throws InputException{
         if (!adminLoggedIn) {
             throw new InputException("there is no admin logged in.");
+        } else if (sports.isEmpty()) {
+            throw new InputException("you need to add a sport and discipline first");
         }
-
         return SportsAndDisciplinesAlphabetically.listSportsAndDisciplines(sports).trim();
+    }
+
+
+    /**
+     * Methode um einem Land einen IOC Code zuzuweisen.
+     * @param iocID IOC ID
+     * @param iocCode IOC Code
+     * @param countryName Name des Landes
+     * @param year Festlegungsjahr
+     * @throws InputException falls Admin nicht angemeldet oder das Land schon existiert, da das Land nur erstellt
+     * werden kann wenn ein IOC code eingegeben wird.
+     */
+    public void addIOCCode(int iocID, String iocCode, String countryName, int year) throws InputException {
+        if (!adminLoggedIn) {
+            throw new InputException("there is no admin logged in.");
+        } else if (countries.containsKey(countryName)) {
+            throw new InputException("the country already exists with the IOC code");
+        }
+        countries.put(countryName, new Country(iocID, iocCode, year, countryName));
+    }
+
+    /**
+     * Methode gibt einen String mit einer Liste an IOC Codes sortiert nach deren Festlegungsdatum und ID zurück. Man
+     * musst nicht prüfen ob es Länder ohne IOC Codes gibt, da diese niemals erstellt werden können.
+     * @return
+     * @throws InputException wenn kein Admin angemeldet oder keine Länder existieren
+     */
+    public String listIOCCodes() throws InputException {
+        if (!adminLoggedIn) {
+            throw new InputException("there is no admin logged in.");
+        } else if (countries.isEmpty()) {
+            throw new InputException("there are no countries and IOC Codes set");
+        }
+        return ListOfCountriesAndIOCCodesBySettingYear.listCountriesAndIOC(countries);
     }
 }
