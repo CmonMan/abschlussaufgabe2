@@ -127,6 +127,15 @@ public enum Command {
     ADD_ATHLETE("add-athlete (\\d{4});([^\\n;]+);([^\\n;]+);([^\\n;]+);([\\w\\D]+);([\\w\\D]+)") {
         @Override
         public void execute(MatchResult matcher, Administration olympicWinterGames) throws InputException {
+            int athleteID = ValidateInteger.validateInt(matcher.group(1));
+            String preName = matcher.group(2);
+            String surName = matcher.group(3);
+            String countryName = matcher.group(4);
+            String sport = matcher.group(5);
+            String discipline = matcher.group(6);
+
+            olympicWinterGames.addAthlete(athleteID, preName, surName, countryName, sport, discipline);
+            Terminal.printLine("OK");
         }
     },
     /**
@@ -135,6 +144,10 @@ public enum Command {
     SUMMARY_ATHLETES("summary-athletes ([\\w\\D]+);([\\w\\D]+)") {
         @Override
         public void execute(MatchResult matcher, Administration olympicWinterGames) throws InputException {
+            String sport = matcher.group(1);
+            String discipline = matcher.group(2);
+
+            Terminal.printLine(olympicWinterGames.summaryAthletes(sport, discipline));
         }
     },
     /**

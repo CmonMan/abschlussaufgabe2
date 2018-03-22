@@ -8,7 +8,7 @@ import java.util.*;
  */
 public class Administration {
 
-    private HashMap<String, Sport> sports;
+    private Map<String, Sport> sports;
     private Map<String, Admin> admins;
     private Map<String, Country> countries;
     private boolean adminLoggedIn = false;
@@ -106,7 +106,7 @@ public class Administration {
         } else if (countries.get(countryName).getSportsVenues().isEmpty()) {
             throw new InputException("there is no sport venue in this country");
         }
-        return countries.get(countryName).listSportsVenues();
+        return countries.get(countryName).listSportsVenues().trim();
     }
 
     /**
@@ -125,7 +125,7 @@ public class Administration {
             return;
         }
         Sport actualSport = sports.get(sport);
-        if(!actualSport.addDiscipline(discipline)) {
+        if(!actualSport.disciplineExists(discipline)) {
             throw new InputException("the discipline already exists");
         }
         actualSport.addDiscipline(discipline);
@@ -177,5 +177,69 @@ public class Administration {
             throw new InputException("there are no countries and IOC Codes set");
         }
         return ListOfCountriesAndIOCCodesBySettingYear.listCountriesAndIOC(countries);
+    }
+
+    /**
+     * Methode um einen Sportler dem System hinzuzufügen. Der Sportler wird in der Disziplin sowie dem Land
+     * hinzugefügt. Somit ist die spätere Ausgabe der Sportler nach Sportart und Disziplin einfacher und es ist
+     * die Unterscheidung möglich, dass wenn ein Sportler existiert aber noch nicht in einer bestimmten Disziplin
+     * ihn trotzdem hinzuzufügen.
+     * Ländern
+     * @param athleteID ID des Athleten
+     * @param preName Vorname
+     * @param surName Nachname
+     * @param countryName Name des Landes
+     * @param sport Sportart
+     * @param discipline Disziplin
+     * @throws InputException falls Admin nicht angemeldet ist, Land nicht initialisiert, Sportart oder Disziplin nicht
+     * vorhanden, und Sportler in Disziplin sowie Land bereits initialisiert
+     */
+    public void addAthlete(int athleteID, String preName, String surName, String countryName, String sport,
+                           String discipline) throws InputException{
+        if (!adminLoggedIn) {
+            throw new InputException("there is no admin logged in.");
+        } else if (countries.containsKey(countryName)) {
+            throw new InputException("the country you want to add the athlete does not exist.");
+        } else if (!sports.containsKey(sport)) {
+            throw new InputException("this sport does not exist.");
+        }
+
+        Sport actualSport = sports.get(sport);
+        if (!actualSport.disciplineExists(discipline)) {
+            throw new InputException("this discipline does not exist.");
+        }
+
+        Country countryOfAthlete = countries.get(countryName);
+        if (countryOfAthlete.athleteExist(athleteID) && actualSport.athleteExistInDiscipline(athleteID, discipline)) {
+            throw new InputException("athlete already exists in System for this discipline.");
+        } else if (countryOfAthlete.athleteExist(athleteID) &&
+                !actualSport.athleteExistInDiscipline(athleteID, discipline)) {
+            actualSport.addAthleteInDiscipline(athleteID, preName, surName, discipline);
+        } else {
+            countryOfAthlete.addAthlete(athleteID, preName, surName);
+            actualSport.addAthleteInDiscipline(athleteID, preName, surName, discipline);
+        }
+    }
+
+    /**
+     * Methode prüft auf Fehler und gibt die Sportart und Disziplin weiter und gibt letztendlich eine Liste
+     * an Sportlern nach Anzahl der Medaillen und IDs sortiert zurück
+     * @param sport Sportart
+     * @param discipline Disziplin
+     * @return Liste an Sportlern der Sportart bzw. Disziplin
+     * @throws InputException
+     */
+    public String summaryAthletes(String sport, String discipline) throws InputException{
+        if (!adminLoggedIn) {
+            throw new InputException("there is no admin logged in.");
+        }else if (!sports.containsKey(sport)) {
+            throw new InputException("this sport does not exist.");
+        }
+
+        Sport actualSport = sports.get(sport);
+        if (!actualSport.disciplineExists(discipline)) {
+            throw new InputException("this discipline does not exist.");
+        }
+        return actualSport.summaryAthletes(discipline).trim();
     }
 }

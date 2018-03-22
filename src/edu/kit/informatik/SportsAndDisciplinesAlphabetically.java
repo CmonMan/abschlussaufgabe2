@@ -20,7 +20,6 @@ public class SportsAndDisciplinesAlphabetically {
         //for schleife fügt einer Liste die Sportarten hinzu und sortiert die Sportdisziplinenen innerhalb der Sportklasse
         for (String sport : sports.keySet()) {
             listOfSports.add(sports.get(sport));
-            sports.get(sport).sortDisciplines();
         }
 
         listOfSports.sort(Comparator.comparing(Sport:: getNameOfSport));
