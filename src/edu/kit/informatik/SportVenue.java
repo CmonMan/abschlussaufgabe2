@@ -8,7 +8,7 @@ public class SportVenue {
     private String sportsVenueName;
     private int yearOfOpening;
     private int numberOfSeats;
-    private int id;
+    private String id;
 
     /**
      * Konstruktor einer Sportstätte
@@ -18,7 +18,7 @@ public class SportVenue {
      * @param yearOfOpening Eröffnungsjahr
      * @param numberOfSeats Sitzplätze
      */
-    public SportVenue(int id, String place, String sportsVenueName, int yearOfOpening, int numberOfSeats) {
+    public SportVenue(String id, String place, String sportsVenueName, int yearOfOpening, int numberOfSeats) {
         this.id = id;
         this.location = place;
         this.sportsVenueName = sportsVenueName;
@@ -46,7 +46,7 @@ public class SportVenue {
      * Getter um die ID der Sportstätte zu bekommen
      * @return ID der Sportstätte
      */
-    public int getID() {
+    public String getID() {
         return id;
     }
 }

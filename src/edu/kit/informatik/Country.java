@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public class Country {
     private String countryName;
-    private Map<Integer, SportVenue> sportsVenues;
+    private Map<String, SportVenue> sportsVenues;
     private IOC ioc;
     private Map<Integer, Athlete> athletesOfCountry;
     private int gold;
@@ -41,7 +41,7 @@ public class Country {
      * @param yearOfOpening Eröffnungsjahr
      * @param amountOfSeats Anzahl der Sitzplätze
      */
-    public void addSportsVenue(int sportsVenueID, String place, String sportsVenueName, int yearOfOpening,
+    public void addSportsVenue(String sportsVenueID, String place, String sportsVenueName, int yearOfOpening,
                                int amountOfSeats) {
         sportsVenues.put(sportsVenueID, new SportVenue(sportsVenueID, place, sportsVenueName, yearOfOpening,
                 amountOfSeats));
@@ -87,7 +87,7 @@ public class Country {
      * Somit kann Exception Handling in einer Klasse durchgeführt werden und ist nicht überall verteilt.
      * @return Sporstätten des Landes
      */
-    public Map<Integer, SportVenue> getSportsVenues() {
+    public Map<String, SportVenue> getSportsVenues() {
         return sportsVenues;
     }
 

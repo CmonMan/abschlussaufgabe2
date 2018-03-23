@@ -14,11 +14,11 @@ public class SortSportsVenueBySeats {
      * @param sportsVenues Sportstätten des Landes
      * @return einen String der die Liste der sortierten Sportstätten beinhaltet
      */
-    public static String sortBySeats(Map<Integer, SportVenue> sportsVenues) {
+    public static String sortBySeats(Map<String, SportVenue> sportsVenues) {
         Comparator<SportVenue> comparator = comparatorForSeats();
         ArrayList<SportVenue> listOfSportVenues = new ArrayList<>();
         // Die Arrayliste wird mit Sportstätten gefüllt
-        for (Integer key: sportsVenues.keySet()) {
+        for (String key: sportsVenues.keySet()) {
             listOfSportVenues.add(sportsVenues.get(key));
         }
         listOfSportVenues.sort(comparator);
