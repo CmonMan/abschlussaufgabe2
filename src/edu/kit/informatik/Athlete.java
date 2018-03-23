@@ -1,11 +1,24 @@
 package edu.kit.informatik;
 
+import java.util.ArrayList;
+
+/**
+ * Klasse stellt einen Athleten dar. Es wird außerdem gespeichert wie viele Medaillen und in welchen Jahren der
+ * Sportler diese gewonnen hat.
+ */
 public class Athlete extends Person implements Comparable<Athlete>{
 
     private String id;
     private int medal;
+    private ArrayList<Integer> yearsOfCompetitionMedal;
 
+    /**
+     * @param athleteID
+     * @param preName
+     * @param surName
+     */
     public Athlete(int athleteID, String preName, String surName) {
+        yearsOfCompetitionMedal = new ArrayList<>();
         this.id = Integer.toString(athleteID);
         this.preName = preName;
         this.surName = surName;
@@ -13,8 +26,24 @@ public class Athlete extends Person implements Comparable<Athlete>{
     }
 
 
-    public void setMedal(int medal) {
-        this.medal = medal;
+    /**
+     * @param medal
+     * @param year
+     */
+    public void setWonCompetition(int medal, int year) {
+        this.medal += medal;
+        yearsOfCompetitionMedal.add(year);
+    }
+
+    /**
+     * @param year
+     * @return
+     */
+    public boolean testCompetitionYear(int year) {
+        for (Integer wonCompetitionYear : yearsOfCompetitionMedal) {
+            if (wonCompetitionYear == year ) return true;
+        }
+        return false;
     }
 
     /**

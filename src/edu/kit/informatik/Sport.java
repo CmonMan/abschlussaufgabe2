@@ -34,7 +34,7 @@ public class Sport {
      * @return true falls es existiert, false falls nicht
      */
     public boolean disciplineExists(String discipline) {
-        return disciplines.containsKey(discipline);
+        return !disciplines.containsKey(discipline);
     }
 
     /**
@@ -93,6 +93,22 @@ public class Sport {
     public String summaryAthletes(String discipline) {
         Discipline actualDiscipline = disciplines.get(discipline);
         return actualDiscipline.summaryAthletes();
+    }
+
+    /**
+     * @param athleteID
+     * @param discipline
+     * @param year
+     * @return
+     */
+    public boolean athleteAlreadyHasMedal(int athleteID, String discipline, int year) {
+        Discipline disciplineOfAthlete = disciplines.get(discipline);
+        return disciplineOfAthlete.getAthlete(athleteID).testCompetitionYear(year);
+    }
+
+    public void addMedalToAthlete(int medal, String discipline, int athleteID, int year) {
+        Discipline disciplineOfAthlete = disciplines.get(discipline);
+        disciplineOfAthlete.getAthlete(athleteID).setWonCompetition(medal, year);
     }
 
     /**

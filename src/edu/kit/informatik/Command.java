@@ -156,6 +156,17 @@ public enum Command {
     ADD_COMPETITION("add-competition (\\d{4});(\\d{4});([^\\n;]+);([^\\n;]+);([^\\n;]+);([0,1]);([0,1]);([0,1])") {
         @Override
         public void execute(MatchResult matcher, Administration olympicWinterGames) throws InputException {
+            int athleteID = ValidateInteger.validateInt(matcher.group(1));
+            int year = ValidateInteger.validateInt(matcher.group(2));
+            String countryName = matcher.group(3);
+            String sport = matcher.group(4);
+            String discipline = matcher.group(5);
+            int gold = Integer.parseInt(matcher.group(6));
+            int silver = Integer.parseInt(matcher.group(7));
+            int bronze = Integer.parseInt(matcher.group(8));
+
+            olympicWinterGames.addCompetition(athleteID, year, countryName, sport, discipline, gold, silver, bronze);
+            Terminal.printLine("OK");
         }
     },
     /**
@@ -164,6 +175,7 @@ public enum Command {
     OLYMPIC_MEDAL_TABLE("olympic-medal-table") {
         @Override
         public void execute(MatchResult matcher, Administration olympicWinterGames) throws InputException {
+            Terminal.printLine(olympicWinterGames.listOlympicMedalTable());
         }
     },
     /**
@@ -172,7 +184,8 @@ public enum Command {
     RESET("reset") {
         @Override
         public void execute(MatchResult matcher, Administration olympicWinterGames) throws InputException {
-
+            olympicWinterGames.resetTheWinterGames();
+            Terminal.printLine("OK");
         }
     },
     /**

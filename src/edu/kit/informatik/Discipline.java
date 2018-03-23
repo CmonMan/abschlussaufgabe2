@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * Klasse die eine Disziplin darstellt
  */
 public class Discipline {
     private String nameOfDiscipline;
@@ -40,7 +40,18 @@ public class Discipline {
         return athletesOfTheDiscipline.containsKey(athleteID);
     }
 
+    /**
+     * @return
+     */
     public String summaryAthletes() {
         return SortAthletesOfDiscipline.sortAthletes(athletesOfTheDiscipline);
+    }
+
+    /**
+     * @param athleteID
+     * @return
+     */
+    public Athlete getAthlete(int athleteID) {
+        return athletesOfTheDiscipline.get(athleteID);
     }
 }

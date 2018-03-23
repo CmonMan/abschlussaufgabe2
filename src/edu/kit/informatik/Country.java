@@ -11,6 +11,9 @@ public class Country{
     private Map<String, SportVenue> sportsVenues;
     private IOC ioc;
     private Map<Integer, Athlete> athletesOfCountry;
+    private int gold;
+    private int silver;
+    private int bronze;
 
     /**
      * Konstruktor für die Country Klasse
@@ -23,6 +26,9 @@ public class Country{
         this.sportsVenues = new HashMap<>();
         this.ioc = new IOC(iocID, iocCode, year);
         this.athletesOfCountry = new HashMap<>();
+        gold = 0;
+        silver = 0;
+        bronze = 0;
     }
 
 
@@ -68,14 +74,6 @@ public class Country{
     }
 
     /**
-     * Getter für den Namen des Landes
-     * @return Name des Landes
-     */
-    public String getCountryName() {
-        return countryName;
-    }
-
-    /**
      * Getter Methode für die IOC-Codes des Landes
      * @return IOC Objekt
      */
@@ -92,4 +90,55 @@ public class Country{
         return sportsVenues;
     }
 
+    /**
+     * Methode addiert die Medallien eines Wettkampfes zu dem Land.
+     * @param gold Gold Medaille
+     * @param silver Silber Medaille
+     * @param bronze Bronze Medaille
+     */
+    public void addMedalToCountry(int gold, int silver, int bronze) {
+        this.gold += gold;
+        this.silver += silver;
+        this.bronze += bronze;
+    }
+
+    /**
+     * Getter für den Namen des Landes
+     * @return Name des Landes
+     */
+    public String getCountryName() {
+        return countryName;
+    }
+
+    /**
+     * Getter für die Gold Medaillen des Landes.
+     * @return Gold Medaillen
+     */
+    public int getGold() {
+        return gold;
+    }
+
+    /**
+     * Getter für die Silber Medaillen des Landes.
+     * @return Silber Medaillen
+     */
+    public int getSilver() {
+        return silver;
+    }
+
+    /**
+     * Getter für die Bronze Medaillen des Landes.
+     * @return Bronze Medaillen
+     */
+    public int getBronze() {
+        return bronze;
+    }
+
+    /**
+     * Methode um die Anzahl der Medaillen eines Landes zu bekommen.
+     * @return Anzahl der Medaillen
+     */
+    public int getAmountOfMedals() {
+        return gold + silver + bronze;
+    }
 }

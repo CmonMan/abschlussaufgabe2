@@ -125,7 +125,7 @@ public class Administration {
             return;
         }
         Sport actualSport = sports.get(sport);
-        if(!actualSport.disciplineExists(discipline)) {
+        if(actualSport.disciplineExists(discipline)) {
             throw new InputException("the discipline already exists");
         }
         actualSport.addDiscipline(discipline);
@@ -205,7 +205,7 @@ public class Administration {
         }
 
         Sport actualSport = sports.get(sport);
-        if (!actualSport.disciplineExists(discipline)) {
+        if (actualSport.disciplineExists(discipline)) {
             throw new InputException("this discipline does not exist.");
         }
 
@@ -227,7 +227,7 @@ public class Administration {
      * @param sport Sportart
      * @param discipline Disziplin
      * @return Liste an Sportlern der Sportart bzw. Disziplin
-     * @throws InputException
+     * @throws InputException falls Admin nicht angemeldet, der Sport oder die Disziplin nicht existiert.
      */
     public String summaryAthletes(String sport, String discipline) throws InputException{
         if (!adminLoggedIn) {
@@ -237,9 +237,78 @@ public class Administration {
         }
 
         Sport actualSport = sports.get(sport);
-        if (!actualSport.disciplineExists(discipline)) {
+        if (actualSport.disciplineExists(discipline)) {
             throw new InputException("this discipline does not exist.");
         }
         return actualSport.summaryAthletes(discipline).trim();
+    }
+
+    /**
+     * Methode verarbeitet die Information über das abschneiden eines Athleten bei einem Wettkampf und gibt die
+     * Parameter weiter.
+     * @param athleteID ID des Athleten
+     * @param year Das Jahr in dem der Wettkampf stattfand
+     * @param countryName Name des Landes des Athleten
+     * @param sport Sportart
+     * @param discipline Disziplin
+     * @param gold Gold Medaille
+     * @param silver Silber Medaille
+     * @param bronze Bronze Medaille
+     * @throws InputException falls Admin nicht angemeldet, kein olympisches Jahr, der Athlet-, das Land-,
+     * die Disziplin nicht exitiert, der Athlet bereits eine Medaille in dem Jahr gewonnen hat in der Sportart.
+     */
+    public void addCompetition(int athleteID, int year, String countryName, String sport, String discipline, int gold,
+                               int silver, int bronze) throws  InputException{
+        if (!adminLoggedIn) {
+            throw new InputException("there is no admin logged in.");
+        } else if ((gold + silver + bronze) > 1) {
+            throw new InputException("the athlete can not win more than one medal.");
+        } else if (!(year > 1926 && year < 2018) && !(year % 4 == 2)) {
+            throw new InputException("the year you did input is not an olympic year.");
+        } else if (countries.containsKey(countryName)) {
+            throw new InputException("the country of the athlete does not exist.");
+        } else if (!sports.containsKey(sport)) {
+            throw new InputException("this sport does not exist.");
+        }
+
+        Sport actualSport = sports.get(sport);
+        if (actualSport.disciplineExists(discipline)) {
+            throw new InputException("this discipline does not exist.");
+        } else if (!actualSport.athleteExistInDiscipline(athleteID, discipline)) {
+            throw new InputException("the athlete does not exist.");
+        } else if (actualSport.athleteAlreadyHasMedal(athleteID, discipline, year)) {
+            throw new InputException("athlete already won medal in this year");
+        }
+
+        Country actualCountry = countries.get(countryName);
+        actualCountry.addMedalToCountry(gold, silver, bronze);
+        int medal = gold + silver + bronze;
+        actualSport.addMedalToAthlete(medal, discipline, athleteID, year);
+    }
+
+    /**
+     * Die Methode gibt den ewigen Medaillenspiegel zurück als String
+     * @return String Liste die den Medaillenspiegel angibt
+     * @throws InputException falls Admin nicht angemeldet, kein Land existiert.
+     */
+    public String listOlympicMedalTable() throws InputException{
+        if (!adminLoggedIn) {
+            throw new InputException("there is no admin logged in.");
+        } else if (countries.isEmpty()) {
+            throw new InputException("you first need to intialize countries and add competitions.");
+        }
+        return SortCountriesByMedals.olympicMedalTable(countries);
+    }
+
+    /**
+     * Methode überschreibt und initialisiert alle Maps neu bis auf die des Admins.
+     * @throws InputException falls kein Admin angemeldet
+     */
+    public void resetTheWinterGames() throws InputException{
+        if (!adminLoggedIn) {
+            throw new InputException("there is no admin logged in.");
+        }
+        this.countries = new HashMap<>();
+        this.sports = new HashMap<>();
     }
 }

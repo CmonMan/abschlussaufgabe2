@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Map;
 
 /**
- *
+ *Die Klasse sortiert mithilfe der static Methode alle Sportstätten nach Anzahl ihrer Sitze und danach der ID.
  */
 public class SortSportsVenueBySeats {
 

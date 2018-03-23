@@ -5,13 +5,14 @@ import java.util.Collections;
 import java.util.Map;
 
 /**
- *
+ * Die Klasse sortiert mithilfe der static Athleten einer Sportart und Disziplin alphabetisch.
  */
 public class SortAthletesOfDiscipline {
 
     /**
-     * @param mapOfAthletes
-     * @return
+     * Methode sortiert alphabetisch die Sportler der Disziplin.
+     * @param mapOfAthletes Athleten einer Disziplin
+     * @return Liste der Athleten
      */
     public static String sortAthletes(Map<Integer, Athlete> mapOfAthletes) {
         ArrayList<Athlete> listOfAthletes = new ArrayList<>();
@@ -19,7 +20,7 @@ public class SortAthletesOfDiscipline {
         for (Integer id : mapOfAthletes.keySet()) {
             listOfAthletes.add(mapOfAthletes.get(id));
         }
-        Collections.sort(listOfAthletes);
+        listOfAthletes.sort(Collections.reverseOrder());
 
         String athleteList = "";
         for (Athlete athlete : listOfAthletes) {
