@@ -1,7 +1,6 @@
 package edu.kit.informatik;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
 

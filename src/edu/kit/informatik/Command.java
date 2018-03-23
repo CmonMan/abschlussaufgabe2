@@ -67,7 +67,7 @@ public enum Command {
     /**
      * Ausgabe der Sportstätten nach Anzahl der Sitzplätze
      */
-    LIST_SPORTS_VENUES("list-sports-venues ([^\\d\\W]+)") { //TODO: shit wird bei ID nur mit 7 und nicht 007 ausgegeben. Und Kevin Fragen ob Anzahl sitzplätze meiste ganz oben oder unten
+    LIST_SPORTS_VENUES("list-sports-venues ([^\\d\\W]+)") {
         @Override
         public void execute(MatchResult matcher, Administration olympicWinterGames) throws InputException {
             String countryName = matcher.group(1);

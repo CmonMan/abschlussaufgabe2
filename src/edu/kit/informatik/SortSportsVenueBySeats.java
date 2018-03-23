@@ -1,7 +1,6 @@
 package edu.kit.informatik;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
 
@@ -16,13 +15,13 @@ public class SortSportsVenueBySeats {
      * @return einen String der die Liste der sortierten Sportstätten beinhaltet
      */
     public static String sortBySeats(Map<Integer, SportVenue> sportsVenues) {
-        Comparator comparator = comparatorForSeats();
+        Comparator<SportVenue> comparator = comparatorForSeats();
         ArrayList<SportVenue> listOfSportVenues = new ArrayList<>();
         // Die Arrayliste wird mit Sportstätten gefüllt
         for (Integer key: sportsVenues.keySet()) {
             listOfSportVenues.add(sportsVenues.get(key));
         }
-        Collections.sort(listOfSportVenues, comparator);
+        listOfSportVenues.sort(comparator);
 
         String sportVenueList = "";
         int placement = 1;
@@ -39,9 +38,8 @@ public class SortSportsVenueBySeats {
      * Methode erstellt einen comparator der erst nach Anzahl der Sitzplätze und dann nach der ID vergleicht
      * @return comparator
      */
-    private static Comparator comparatorForSeats() {
-        Comparator<SportVenue> comparator = Comparator.comparing(SportVenue::getNumberOfSeats,
+    private static Comparator<SportVenue> comparatorForSeats() {
+        return Comparator.comparing(SportVenue::getNumberOfSeats,
                 Comparator.reverseOrder()).thenComparing(SportVenue::getID, Comparator.reverseOrder());
-        return comparator;
     }
 }
