@@ -17,7 +17,7 @@ public class SortCountriesByMedals {
      * Medaillen
      */
     public static String olympicMedalTable(Map<String, Country> countries) {
-        Comparator comparator = comparatorForMedals();
+        Comparator<Country> comparator = comparatorForMedals();
         ArrayList<Country> countriesToSort = new ArrayList<>();
 
         //Arrayliste an Ländern wird aus der Map extrahiert
@@ -25,7 +25,7 @@ public class SortCountriesByMedals {
             countriesToSort.add(countries.get(countryName));
         }
 
-        Collections.sort(countriesToSort, comparator);
+        countriesToSort.sort(comparator);
 
         int placement = 1;
         String medalListOfCountries = "";
@@ -45,10 +45,9 @@ public class SortCountriesByMedals {
      * vergleicht.
      * @return comparator
      */
-    private static Comparator comparatorForMedals() {
-        Comparator<Country> comparator = Comparator.comparing(Country::getGold, Comparator.reverseOrder())
+    private static Comparator<Country> comparatorForMedals() {
+        return Comparator.comparing(Country::getGold, Comparator.reverseOrder())
                 .thenComparing(Country::getSilver, Comparator.reverseOrder())
                 .thenComparing(Country::getBronze, Comparator.reverseOrder());
-        return comparator;
     }
 }

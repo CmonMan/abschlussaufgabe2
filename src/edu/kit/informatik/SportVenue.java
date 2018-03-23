@@ -3,23 +3,23 @@ package edu.kit.informatik;
 /**
  * Sportstätten Klasse welche ein Sportstätten Objekt darstellt.
  */
-public class SportVenue{
+public class SportVenue {
     private String location;
     private String sportsVenueName;
     private int yearOfOpening;
     private int numberOfSeats;
-    private int ID;
+    private int id;
 
     /**
      * Konstruktor einer Sportstätte
-     * @param ID ID der Sportstätte
+     * @param id id der Sportstätte
      * @param place Ort
      * @param sportsVenueName Name der Sporstätte
      * @param yearOfOpening Eröffnungsjahr
      * @param numberOfSeats Sitzplätze
      */
-    public SportVenue(int ID, String place, String sportsVenueName, int yearOfOpening, int numberOfSeats) {
-        this.ID = ID;
+    public SportVenue(int id, String place, String sportsVenueName, int yearOfOpening, int numberOfSeats) {
+        this.id = id;
         this.location = place;
         this.sportsVenueName = sportsVenueName;
         this.yearOfOpening = yearOfOpening;
@@ -47,7 +47,7 @@ public class SportVenue{
      * @return ID der Sportstätte
      */
     public int getID() {
-        return ID;
+        return id;
     }
 }
 

@@ -96,16 +96,24 @@ public class Sport {
     }
 
     /**
-     * @param athleteID
-     * @param discipline
-     * @param year
-     * @return
+     * Methode fragt ab ob der Athlet in der Disziplin in dem Jahr schon eine Medaille gewonnen hat
+     * @param athleteID Athleten ID
+     * @param discipline Disziplin
+     * @param year Jahr
+     * @return true falls er schon eine hat
      */
     public boolean athleteAlreadyHasMedal(int athleteID, String discipline, int year) {
         Discipline disciplineOfAthlete = disciplines.get(discipline);
         return disciplineOfAthlete.getAthlete(athleteID).testCompetitionYear(year);
     }
 
+    /**
+     * Fügt einen Wettkampf zu einem Athleten hinzu
+     * @param medal Medaille
+     * @param discipline Disziplin
+     * @param athleteID Athleten ID
+     * @param year Jahr
+     */
     public void addMedalToAthlete(int medal, String discipline, int athleteID, int year) {
         Discipline disciplineOfAthlete = disciplines.get(discipline);
         disciplineOfAthlete.getAthlete(athleteID).setWonCompetition(medal, year);

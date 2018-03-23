@@ -17,7 +17,10 @@ public class SportsAndDisciplinesAlphabetically {
     public static String listSportsAndDisciplines(Map<String, Sport> sports) {
         ArrayList<Sport> listOfSports = new ArrayList<>();
 
-        //for schleife fügt einer Liste die Sportarten hinzu und sortiert die Sportdisziplinenen innerhalb der Sportklasse
+        /*
+        for schleife fügt einer Liste die Sportarten hinzu und sortiert die Sportdisziplinenen innerhalb
+        der Sportklasse
+         */
         for (String sport : sports.keySet()) {
             listOfSports.add(sports.get(sport));
         }
@@ -25,7 +28,10 @@ public class SportsAndDisciplinesAlphabetically {
         listOfSports.sort(Comparator.comparing(Sport:: getNameOfSport));
 
         String sportList = "";
-        // Schleife iteriert durch einzelne Sportarten und erstellt eine Liste von den Sportarten mit dazugehörigen Disziplinen
+        /*
+        Schleife iteriert durch einzelne Sportarten und erstellt eine Liste von den Sportarten mit
+        dazugehörigen Disziplinen
+         */
         for (Sport sport: listOfSports) {
             sportList += sport.getSportAndDisciplines();
         }
