@@ -77,7 +77,7 @@ public class Administration {
      * @param numberOfSeats Anzahl der Sitzplätze
      * @throws InputException falls die Sportstätte schon existiert
      */
-    public void addSportsVenue(String sportsVenueID, String countryName, String place, String sportsVenueName,
+    public void addSportsVenue(int sportsVenueID, String countryName, String place, String sportsVenueName,
                                int yearOfOpening, int numberOfSeats) throws InputException {
         if (!adminLoggedIn) {
             throw new InputException("there is no admin logged in.");

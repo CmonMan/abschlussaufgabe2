@@ -3,12 +3,12 @@ package edu.kit.informatik;
 /**
  * Sportstätten Klasse welche ein Sportstätten Objekt darstellt.
  */
-public class SportVenue implements Comparable<SportVenue> {
+public class SportVenue{
     private String location;
     private String sportsVenueName;
     private int yearOfOpening;
     private int numberOfSeats;
-    private String ID;
+    private int ID;
 
     /**
      * Konstruktor einer Sportstätte
@@ -18,7 +18,7 @@ public class SportVenue implements Comparable<SportVenue> {
      * @param yearOfOpening Eröffnungsjahr
      * @param numberOfSeats Sitzplätze
      */
-    public SportVenue(String ID, String place, String sportsVenueName, int yearOfOpening, int numberOfSeats) {
+    public SportVenue(int ID, String place, String sportsVenueName, int yearOfOpening, int numberOfSeats) {
         this.ID = ID;
         this.location = place;
         this.sportsVenueName = sportsVenueName;
@@ -34,15 +34,6 @@ public class SportVenue implements Comparable<SportVenue> {
         return numberOfSeats;
     }
 
-    @Override
-    public int compareTo(SportVenue other) {
-        if (this.numberOfSeats > other.getNumberOfSeats()) {
-            return 1;
-        } else if (this.numberOfSeats > other.getNumberOfSeats()) {
-            return -1;
-        } else return this.ID.compareTo(other.getID());
-    }
-
     /**
      * Getter um den Ort der Sportstätte zu bekommen
      * @return Ort der Sportstätte
@@ -55,7 +46,7 @@ public class SportVenue implements Comparable<SportVenue> {
      * Getter um die ID der Sportstätte zu bekommen
      * @return ID der Sportstätte
      */
-    public String getID() {
+    public int getID() {
         return ID;
     }
 }

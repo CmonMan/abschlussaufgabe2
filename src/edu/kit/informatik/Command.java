@@ -52,7 +52,7 @@ public enum Command {
     ADD_SPORTS_VENUE ("add-sports-venue (\\d{3});([^\\d\\W]+);([^\\d\\W]+);([^\\d\\W]+);(\\d{4});(\\d+)") {
         @Override
         public void execute(MatchResult matcher, Administration olympicWinterGames) throws InputException {
-            String sportsVenueID = matcher.group(1);
+            int sportsVenueID = ValidateInteger.validateInt(matcher.group(1));
             String countryName = matcher.group((2));
             String place = matcher.group(3);
             String sportsVenueName = matcher.group(4);
