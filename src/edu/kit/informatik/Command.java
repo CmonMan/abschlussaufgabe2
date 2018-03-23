@@ -58,7 +58,7 @@ public enum Command {
             String sportsVenueName = matcher.group(4);
             int yearOfOpening = ValidateInteger.validateInt(matcher.group(5));
             int amountOfSeats = ValidateInteger.validateInt(matcher.group(6));
-            if(yearOfOpening == -1 || amountOfSeats == -1) return;
+            if (yearOfOpening == -1 || amountOfSeats == -1) return;
             olympicWinterGames.addSportsVenue(sportsVenueID, countryName, place, sportsVenueName, yearOfOpening,
                     amountOfSeats);
             Terminal.printLine("OK");
@@ -208,7 +208,7 @@ public enum Command {
     Command(String pattern) {
         this.pattern = Pattern.compile(pattern);
     }
-    //TODO: richtiger Kommentar für Verwaltungssystem und nicht connectSix
+
     /**
      * Die Methode teilt die Eingabe in Einzelteile und prüft ob sie mit einem der oberen Kommandos übereinstimmt.
      * @param input eingelesene Eingabe

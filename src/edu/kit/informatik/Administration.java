@@ -30,7 +30,7 @@ public class Administration {
      * @param password Passwort des Accounts
      * @throws InputException falls ein Admin eingeloggt ist oder dieser Admin schon existiert
      */
-    public void addAdmin(String preName, String surName, String userName, String password) throws InputException{
+    public void addAdmin(String preName, String surName, String userName, String password) throws InputException {
         if (adminLoggedIn) {
             throw new InputException("an admin is logged in. Please log out.");
         } else if (admins.containsKey(userName)) {
@@ -45,7 +45,7 @@ public class Administration {
      * @param password Passwort des Admin Accounts
      * @throws InputException falls ein Admin angemeldet, Admin nicht registriert, falsches Passwort
      */
-    public void loginAdmin(String userName, String password) throws InputException{
+    public void loginAdmin(String userName, String password) throws InputException {
         if (adminLoggedIn) {
             throw new InputException("an admin is logged in. Please log out.");
         } else if (!admins.containsKey(userName)) {
@@ -60,7 +60,7 @@ public class Administration {
      * Methode um sich als Administrator aus zu loggen.
      * @throws InputException falls kein Administrator angemeldet ist
      */
-    public void logoutAdmin() throws InputException{
+    public void logoutAdmin() throws InputException {
         if (!adminLoggedIn) {
             throw new InputException("there is no admin logged in.");
         }
@@ -78,7 +78,7 @@ public class Administration {
      * @throws InputException falls die Sportstätte schon existiert
      */
     public void addSportsVenue(String sportsVenueID, String countryName, String place, String sportsVenueName,
-                               int yearOfOpening, int numberOfSeats) throws InputException{
+                               int yearOfOpening, int numberOfSeats) throws InputException {
         if (!adminLoggedIn) {
             throw new InputException("there is no admin logged in.");
         } else if (!countries.containsKey(countryName)) {
@@ -125,7 +125,7 @@ public class Administration {
             return;
         }
         Sport actualSport = sports.get(sport);
-        if(actualSport.disciplineExists(discipline)) {
+        if (actualSport.disciplineExists(discipline)) {
             throw new InputException("the discipline already exists");
         }
         actualSport.addDiscipline(discipline);
@@ -136,7 +136,7 @@ public class Administration {
      * @return einen Sportarten und Disziplinen String
      * @throws InputException falls Admin nicht angemeldet oder noch keine Sportarten hinzugefügt
      */
-    public String listSportsAndDisciplines() throws InputException{
+    public String listSportsAndDisciplines() throws InputException {
         if (!adminLoggedIn) {
             throw new InputException("there is no admin logged in.");
         } else if (sports.isEmpty()) {
@@ -195,7 +195,7 @@ public class Administration {
      * vorhanden, und Sportler in Disziplin sowie Land bereits initialisiert
      */
     public void addAthlete(int athleteID, String preName, String surName, String countryName, String sport,
-                           String discipline) throws InputException{
+                           String discipline) throws InputException {
         if (!adminLoggedIn) {
             throw new InputException("there is no admin logged in.");
         } else if (countries.containsKey(countryName)) {
@@ -212,8 +212,8 @@ public class Administration {
         Country countryOfAthlete = countries.get(countryName);
         if (countryOfAthlete.athleteExist(athleteID) && actualSport.athleteExistInDiscipline(athleteID, discipline)) {
             throw new InputException("athlete already exists in System for this discipline.");
-        } else if (countryOfAthlete.athleteExist(athleteID) &&
-                !actualSport.athleteExistInDiscipline(athleteID, discipline)) {
+        } else if (countryOfAthlete.athleteExist(athleteID)
+                && !actualSport.athleteExistInDiscipline(athleteID, discipline)) {
             actualSport.addAthleteInDiscipline(athleteID, preName, surName, discipline);
         } else {
             countryOfAthlete.addAthlete(athleteID, preName, surName);
@@ -229,10 +229,10 @@ public class Administration {
      * @return Liste an Sportlern der Sportart bzw. Disziplin
      * @throws InputException falls Admin nicht angemeldet, der Sport oder die Disziplin nicht existiert.
      */
-    public String summaryAthletes(String sport, String discipline) throws InputException{
+    public String summaryAthletes(String sport, String discipline) throws InputException {
         if (!adminLoggedIn) {
             throw new InputException("there is no admin logged in.");
-        }else if (!sports.containsKey(sport)) {
+        } else if (!sports.containsKey(sport)) {
             throw new InputException("this sport does not exist.");
         }
 
@@ -258,7 +258,7 @@ public class Administration {
      * die Disziplin nicht exitiert, der Athlet bereits eine Medaille in dem Jahr gewonnen hat in der Sportart.
      */
     public void addCompetition(int athleteID, int year, String countryName, String sport, String discipline, int gold,
-                               int silver, int bronze) throws  InputException{
+                               int silver, int bronze) throws  InputException {
         if (!adminLoggedIn) {
             throw new InputException("there is no admin logged in.");
         } else if ((gold + silver + bronze) > 1) {
@@ -291,7 +291,7 @@ public class Administration {
      * @return String Liste die den Medaillenspiegel angibt
      * @throws InputException falls Admin nicht angemeldet, kein Land existiert.
      */
-    public String listOlympicMedalTable() throws InputException{
+    public String listOlympicMedalTable() throws InputException {
         if (!adminLoggedIn) {
             throw new InputException("there is no admin logged in.");
         } else if (countries.isEmpty()) {
@@ -304,7 +304,7 @@ public class Administration {
      * Methode überschreibt und initialisiert alle Maps neu bis auf die des Admins.
      * @throws InputException falls kein Admin angemeldet
      */
-    public void resetTheWinterGames() throws InputException{
+    public void resetTheWinterGames() throws InputException {
         if (!adminLoggedIn) {
             throw new InputException("there is no admin logged in.");
         }

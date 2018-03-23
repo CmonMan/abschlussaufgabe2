@@ -3,7 +3,7 @@ package edu.kit.informatik;
 /**
  * Sportstätten Klasse welche ein Sportstätten Objekt darstellt.
  */
-public class SportVenue implements Comparable<SportVenue>{
+public class SportVenue implements Comparable<SportVenue> {
     private String location;
     private String sportsVenueName;
     private int yearOfOpening;
@@ -12,6 +12,7 @@ public class SportVenue implements Comparable<SportVenue>{
 
     /**
      * Konstruktor einer Sportstätte
+     * @param ID ID der Sportstätte
      * @param place Ort
      * @param sportsVenueName Name der Sporstätte
      * @param yearOfOpening Eröffnungsjahr
@@ -33,16 +34,11 @@ public class SportVenue implements Comparable<SportVenue>{
         return numberOfSeats;
     }
 
-    /**
-     * Methode um zwei Sportstätten nach der Anzahl ihrer Sitzplätze zu vergleichen.
-     * @param other die Sportstätte mit der verglichen wird
-     * @return 1 falls Sportstätte mehr Sitzplätze hat, -1 wenn nicht,  dritter return für nächste Vergleichsbedingung
-     */
     @Override
     public int compareTo(SportVenue other) {
-        if(this.numberOfSeats > other.getNumberOfSeats()) {
+        if (this.numberOfSeats > other.getNumberOfSeats()) {
             return 1;
-        } else if(this.numberOfSeats > other.getNumberOfSeats()) {
+        } else if (this.numberOfSeats > other.getNumberOfSeats()) {
             return -1;
         } else return this.ID.compareTo(other.getID());
     }

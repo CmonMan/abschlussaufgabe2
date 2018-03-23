@@ -24,8 +24,8 @@ public class SortAthletesOfDiscipline {
 
         String athleteList = "";
         for (Athlete athlete : listOfAthletes) {
-            athleteList += athlete.getId() + " " + athlete.getPreName() + " " + athlete.getSurName() + " " +
-                    athlete.getMedal();
+            athleteList += athlete.getId() + " " + athlete.getPreName() + " " + athlete.getSurName() + " "
+                    + athlete.getMedal();
         }
 
         return athleteList;

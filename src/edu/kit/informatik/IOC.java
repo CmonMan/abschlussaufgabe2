@@ -3,7 +3,7 @@ package edu.kit.informatik;
 /**
  * IOC Code der zu einem Land zugehörig ist
  */
-public class IOC implements Comparable<IOC>{
+public class IOC implements Comparable<IOC> {
     private int iocID;
     private String iocCode;
     private int year;

@@ -41,15 +41,17 @@ public class Discipline {
     }
 
     /**
-     * @return
+     * Die Athleten der Disziplin werden sortiert und zurückgegeben
+     * @return String der Athleten
      */
     public String summaryAthletes() {
         return SortAthletesOfDiscipline.sortAthletes(athletesOfTheDiscipline);
     }
 
     /**
-     * @param athleteID
-     * @return
+     * Methode um einen bestimmten Athleten zu bekommen
+     * @param athleteID ID des Athleten
+     * @return der gesuchte Athlet
      */
     public Athlete getAthlete(int athleteID) {
         return athletesOfTheDiscipline.get(athleteID);

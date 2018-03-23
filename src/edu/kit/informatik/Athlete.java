@@ -6,16 +6,17 @@ import java.util.ArrayList;
  * Klasse stellt einen Athleten dar. Es wird außerdem gespeichert wie viele Medaillen und in welchen Jahren der
  * Sportler diese gewonnen hat.
  */
-public class Athlete extends Person implements Comparable<Athlete>{
+public class Athlete extends Person implements Comparable<Athlete> {
 
     private String id;
     private int medal;
     private ArrayList<Integer> yearsOfCompetitionMedal;
 
     /**
-     * @param athleteID
-     * @param preName
-     * @param surName
+     * Konstruktor für Athlete Klasse
+     * @param athleteID ID des Athleten
+     * @param preName Vorname
+     * @param surName Nachname
      */
     public Athlete(int athleteID, String preName, String surName) {
         yearsOfCompetitionMedal = new ArrayList<>();
@@ -27,8 +28,9 @@ public class Athlete extends Person implements Comparable<Athlete>{
 
 
     /**
-     * @param medal
-     * @param year
+     * Um ein Wettkampf Ergebnis hinzuzufügen
+     * @param medal Medaille
+     * @param year Jahr des Wettkampfes
      */
     public void setWonCompetition(int medal, int year) {
         this.medal += medal;
@@ -36,8 +38,9 @@ public class Athlete extends Person implements Comparable<Athlete>{
     }
 
     /**
-     * @param year
-     * @return
+     * Methode überprüft ob der Athlet in dem Jahr schon gewonnen hat
+     * @param year Jahr
+     * @return True falls gewonnen in dem Jahr, false falls nicht
      */
     public boolean testCompetitionYear(int year) {
         for (Integer wonCompetitionYear : yearsOfCompetitionMedal) {
@@ -53,9 +56,9 @@ public class Athlete extends Person implements Comparable<Athlete>{
      */
     @Override
     public int compareTo(Athlete other) {
-        if(this.medal > other.getMedal()) {
+        if (this.medal > other.getMedal()) {
             return 1;
-        } else if(this.medal > other.getMedal()) {
+        } else if (this.medal > other.getMedal()) {
             return -1;
         } else return this.id.compareTo(other.getId());
     }

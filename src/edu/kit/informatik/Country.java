@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Klasse die ein Land repräsentiert im Verwaltungssystem
  */
-public class Country{
+public class Country {
     private String countryName;
     private Map<String, SportVenue> sportsVenues;
     private IOC ioc;
@@ -20,6 +20,7 @@ public class Country{
      * @param iocID IOC ID
      * @param iocCode IOC Code
      * @param year Festlegungsjahr
+     * @param countryName Name des Landes
      */
     public Country(int iocID, String iocCode, int year, String countryName) {
         this.countryName = countryName;
