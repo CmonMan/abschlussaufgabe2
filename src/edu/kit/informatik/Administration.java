@@ -265,7 +265,7 @@ public class Administration {
             throw new InputException("the athlete can not win more than one medal.");
         } else if (!(year > 1926 && year < 2018) && !(year % 4 == 2)) {
             throw new InputException("the year you did input is not an olympic year.");
-        } else if (countries.containsKey(countryName)) {
+        } else if (!countries.containsKey(countryName)) {
             throw new InputException("the country of the athlete does not exist.");
         } else if (!sports.containsKey(sport)) {
             throw new InputException("this sport does not exist.");
