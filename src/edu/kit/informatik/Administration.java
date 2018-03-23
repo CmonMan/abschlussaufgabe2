@@ -198,7 +198,7 @@ public class Administration {
                            String discipline) throws InputException {
         if (!adminLoggedIn) {
             throw new InputException("there is no admin logged in.");
-        } else if (countries.containsKey(countryName)) {
+        } else if (!countries.containsKey(countryName)) {
             throw new InputException("the country you want to add the athlete does not exist.");
         } else if (!sports.containsKey(sport)) {
             throw new InputException("this sport does not exist.");
@@ -297,7 +297,7 @@ public class Administration {
         } else if (countries.isEmpty()) {
             throw new InputException("you first need to intialize countries and add competitions.");
         }
-        return SortCountriesByMedals.olympicMedalTable(countries);
+        return SortCountriesByMedals.olympicMedalTable(countries).trim();
     }
 
     /**

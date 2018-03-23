@@ -27,8 +27,8 @@ public class SortSportsVenueBySeats {
         int placement = 1;
         //String Konkatenation um eine Liste an Sportstätten zurückzugeben
         for (SportVenue venue : listOfSportVenues) {
-            sportVenueList += placement + " " + venue.getID() + " " + venue.getLocation() + " "
-                    + venue.getNumberOfSeats() + "\n";
+            sportVenueList += "(" + placement + " " + venue.getID() + " " + venue.getLocation() + " "
+                    + venue.getNumberOfSeats() + ")" + "\n";
             placement++;
         }
         return sportVenueList;

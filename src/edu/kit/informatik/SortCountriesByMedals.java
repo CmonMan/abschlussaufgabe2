@@ -31,9 +31,10 @@ public class SortCountriesByMedals {
 
         //String Konkatenation des Medaillen Spiegels
         for (Country country : countriesToSort) {
-            medalListOfCountries += placement + " " + country.getIOC().getIocID() + " " + country.getIOC().getIocCode()
-                    + " " + country.getCountryName() + " " + country.getGold() + " " + country.getSilver() + " "
-                    + country.getBronze() + " " + country.getAmountOfMedals() + "\n";
+            medalListOfCountries += "(" + placement + "," + country.getIOC().getIocID() + ","
+                    + country.getIOC().getIocCode() + "," + country.getCountryName() + ","
+                    + country.getGold() + "," + country.getSilver() + ","
+                    + country.getBronze() + "," + country.getAmountOfMedals() + ")" + "\n";
             placement++;
         }
         return medalListOfCountries;
